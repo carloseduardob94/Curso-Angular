@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import { Animal } from 'src/app/Animal';
+import { Fruit } from 'src/app/Fruit';
+
+import { ListService } from 'src/app/services/list.service'
 
 @Component({
   selector: 'app-list-render',
@@ -23,9 +26,28 @@ export class ListRenderComponent {
     }
   ]
 
+  fruits: Fruit[] = [
+    {name: 'banana', color: 'yellow'},
+    {name: 'apple', color: 'red'},
+    {name: 'orange', color: 'orange'},
+    {name: 'grape', color: 'purple'}
+  ]
+
   animalDetails = ''
+
+  constructor(private listService: ListService) {
+
+  }
 
   showAge(animal: Animal) {
     this.animalDetails = ` O pet ${animal.name} tem ${animal.age} anos`
+  }
+
+  removeAnimal(animal: Animal) {
+    this.animals = this.listService.remove(this.animals, animal)
+  }
+
+  removeFruit(fruit: Fruit){
+    this.fruits = this.listService.removeFruit(this.fruits, fruit)
   }
 }
